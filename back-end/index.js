@@ -8,6 +8,30 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json())
 
+//-------------------------------------------------
+// Define middleware with cookie
+const cookieParser = require('cookie-parser')
+const cookiesValidator = require('./cookiesValidator')
+
+const validateCookie = async (req, res, next) => {
+  console.log("Cookies: ", req.cookies);
+  try{
+    await cookiesValidator(req.cookies);
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+
+app.use(cookieParser());
+app.use(validateCookie);
+
+// Error handler
+app.use((err, req, res, next) => {
+  console.log(err.message)
+  res.status(400).send("Something broken")
+})
+
 app.get('/', (req, res) => {
   res.send('Hello World')
 })
@@ -158,6 +182,7 @@ app.route('/book')
 // Express Router
 const dogRouter = require('./pkg/dog.js')
 app.use('/dog', dogRouter)
+
 
 //-------------------------------------------------
 
