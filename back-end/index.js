@@ -108,6 +108,57 @@ app.delete('/products/:id', (req, res) => {
     res.send("unable to update")
   }
 }) 
+
+//-------------------------------------------------
+// Define Route Handler
+app.get('/about/a', (req, res) => {
+  res.send("About us");
+})
+
+app.get('/about/b', (req, res, next) => {
+  console.log("Request is recieved");
+  next();
+}, (req, res) => {
+  res.send("About us - Second Time")
+})
+
+// Define multiple handler functions
+const func_1 = (req, res, next) => {
+  console.log("Function 01");
+  next();
+} 
+
+const func_2 = (req, res, next) => {
+  console.log("Function 02");
+  next();
+}
+
+const func_3 = (req, res, next) => {
+  console.log("Function 03");
+  res.send("END");
+}
+
+app.get('/about/c', [func_1, func_2, func_3]);
+
+// Application Route
+app.route('/book')
+  .get((req, res) => {
+    res.send("GET: Book");
+  })
+  .post((req, res) => {
+    res.send("POST: Book");
+  })
+  .put((req, res) => {
+    res.send("PUT: Book");
+  })
+  .delete((req, res) => {
+    res.send("DELETE: Book");
+  })
+//-------------------------------------------------
+// Express Router
+const dogRouter = require('./pkg/dog.js')
+app.use('/dog', dogRouter)
+
 //-------------------------------------------------
 
 app.listen(port, () => {
