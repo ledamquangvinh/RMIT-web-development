@@ -1,15 +1,20 @@
-
-
 const express = require('express');
 const app = express();
 const port = 3000;
 
 const bodyParser = require('body-parser')
+//set static resource
+app.use(express.static('public'));
 
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
   res.send('Hello World')
+})
+
+app.all("/api", (req, res, next) => {
+  console.log(req.method + " Request is recieved");
+  next();
 })
 
 app.get('/api', (req, res) => {
@@ -23,6 +28,8 @@ app.post('/api', (req, res) => {
 
 // -----------------------------------------------
 //? Create API for access the data from data.json in json file
+
+// Pre Request Process
 
 //? Import data file
 var data = require('./data.json')
