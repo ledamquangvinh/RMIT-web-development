@@ -7,7 +7,7 @@ app.use(cookieParser())
 const mw = require('./middleware')
 app.use(mw({option1: '1', option2: 'hello'}))
 
-router.use((err, req, res, next) => {
+app.use((err, req, res, next) => {
   console.error(err.message)
   res.status(500).send(err.message)
 })

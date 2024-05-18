@@ -15,18 +15,7 @@ router.use('/', (req, res, next) => {
   next()
 })
 // --------------------------------------------------------------
-//define Error Handler
 
-
-
-router.use('/', (req, res, next) => {
-  try{
-    console.log("Role", req.cookies.role)
-    next()
-  } catch(error) {
-    next(error)
-  }
-})
 // Define Middlewre for getting path user id
 router.get('/:id', (req, res, next) => {
   if(req.params.id === '0'){
