@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 //-------------------------------------------------
 // Define middleware with cookie
 const cookieParser = require('cookie-parser')
-const cookiesValidator = require('./cookiesValidator')
+const cookiesValidator = require('./cookiesValidator.js')
 
 const validateCookie = async (req, res, next) => {
   console.log("Cookies: ", req.cookies);
@@ -56,7 +56,7 @@ app.post('/api', (req, res) => {
 // Pre Request Process
 
 //? Import data file
-var data = require('./data.json')
+var data = require('../../data.json')
 
 //? step 2: Create API to access to all data
 app.get('/products/all', (req, res) => {
@@ -180,7 +180,7 @@ app.route('/book')
   })
 //-------------------------------------------------
 // Express Router
-const dogRouter = require('./pkg/dog.js')
+const dogRouter = require('../../pkg/dog.js')
 app.use('/dog', dogRouter)
 
 
