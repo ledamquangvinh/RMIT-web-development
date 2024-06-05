@@ -22,7 +22,6 @@ app.get('/', (req, res, next) => {
   } catch{
       throw new Error('Something wrong')
     }
-
 })
 
 app.use(bodyParser.urlencoded({extended: false}))
